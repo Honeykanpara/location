@@ -5,7 +5,8 @@ class HomePage extends Component {
         super();
         this.state = {
             latitude: "",
-            longitude: ""
+            longitude: "",
+            gapi_key: "AIzaSyBr9VoS8bsF3oVfNU9BQmo44M-oNascEIY";
         }
         this.getLocation=this.getLocation.bind(this);
     }
@@ -24,7 +25,6 @@ class HomePage extends Component {
   
 
   codeLatLng(lat, lng) {
-    var google = require('googleapis');
     // console.log(google);
     // var city ="";
     // var geocoder = google.maps.Geocoder();
