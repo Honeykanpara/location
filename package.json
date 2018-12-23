@@ -23,6 +23,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "google-maps-react": "^2.0.2",
     "googleapis": "^36.0.0"
   }
 }
