@@ -13,6 +13,10 @@ body {
   width: 100%;  /* The width is the width of the web page */
  }
 
+ .current-location{
+   color: black;
+ }
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
