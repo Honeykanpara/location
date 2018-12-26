@@ -13,17 +13,14 @@ class HomePage extends Component {
       latitude: "",
       longitude: "",
       loadMaps: false,
-      address: "",
-      loadNearby: false
-    }
+      address: ""
+        }
     this.getLocation = this.getLocation.bind(this);
     this.handlePositionChange = this.handlePositionChange.bind(this);
-    this.resultData = [];
   }
   handleChange = (e) => {
     this.setState({ latitude: e.latitude, longitude: e.longitude, loadMaps: true });
     this.getAddress(e.latitude, e.longitude);
-    this.placeSearch(e.latitude, e.longitude, 10000);
   }
   getLocation() {
     if (navigator.geolocation) {
@@ -31,25 +28,6 @@ class HomePage extends Component {
         this.handleChange(position.coords);
       });
     }
-  }
-
-  placeSearch(latitude, longitude, radius) {
-
-    fetch('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + latitude + ',' + longitude + '&radius=' + radius + '&types=hospital&key=AIzaSyBr9VoS8bsF3oVfNU9BQmo44M-oNascEIY')
-      .then(res => res.json())
-      .then(
-        (result) => {
-          console.log(result);
-          result.results.map((res) => {
-            this.resultData.push(res);
-            console.log("state");
-            this.setState({ loadNearby: true });
-          }
-          );
-        },
-        (error) => {
-        }
-      )
   }
 
   getAddress(lat, long) {
@@ -67,9 +45,7 @@ class HomePage extends Component {
   }
 
   handlePositionChange(position) {
-    console.log(position);
     this.setState({ latitude: position.lat, longitude: position.lng });
-    console.log(this.state.latitude);
   }
 
   render() {
@@ -80,7 +56,7 @@ class HomePage extends Component {
           <div className="map-component">{this.state.loadMaps ? <MapsComponent latitude={this.state.latitude} longitude={this.state.longitude}></MapsComponent> : ""}</div>
         </div>
         <div className="location-text"> You are at: {this.state.address}</div>
-        {this.state.loadNearby ? <NearbyComponent resultData={this.resultData} onSelectPosition={this.handlePositionChange}></NearbyComponent> : ""}
+        {this.state.loadMaps ? <NearbyComponent latitude={this.state.latitude} longitude={this.state.longitude} onSelectPosition={this.handlePositionChange}></NearbyComponent> : ""}
       </div>
     );
   }

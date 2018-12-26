@@ -15,8 +15,10 @@ class MapsComponent extends Component {
             showingInfoWindow: false,
             activeMarker: {},
             selectedPlace: {},
-            lat: this.props.latitude,
-            lng: this.props.longitude
+            position: {
+                lat: this.props.latitude,
+                lng: this.props.longitude
+            }
         };
     }
 
@@ -29,6 +31,12 @@ class MapsComponent extends Component {
     }
 
     componentDidMount() {
+        this.setState({
+            position: {
+                lat: this.props.latitude,
+                lng: this.props.longitude
+            }
+        });
     }
 
     onMapClicked = (props) => {
@@ -40,28 +48,32 @@ class MapsComponent extends Component {
         }
     };
 
-    componentWillReceiveProps(){
-        // this.forceUpdate();
-        // console.log("updatee");
-        this.setState({
-            lat: this.props.latitude,
-            lng: this.props.longitude,
-          });
+    componentWillReceiveProps() {
 
-        }
+        //setting timeout as setState takes time
+        setTimeout(()=>{
+            this.setState({
+                position: {
+                    lat: this.props.latitude,
+                    lng: this.props.longitude
+                }
+            });
+        },10);
+    }
     render() {
         return (
             <div>
-                <Map
+                    <Map
                     google={this.props.google}
                     zoom={14}
                     style={mapStyles}
-                    initialCenter={{
-                        lat: this.state.lat,
-                        lng: this.state.lng
-                    }} onClick={this.onMapClicked} className="map"
+                    center={{
+                        lat: this.state.position.lat,
+                        lng: this.state.position.lng
+                    }}
+                    onClick={this.onMapClicked} className="map"
                 >
-                    <Marker name={'Current location'} onClick={this.onMarkerClick} />
+                    <Marker name={'Current location'} onClick={this.onMarkerClick} position={this.state.position} />
                     <InfoWindow marker={this.state.activeMarker}
                         visible={this.state.showingInfoWindow}>
                         <div>
