@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import Loader from 'react-loader';
 
 
 class NearbyComponent extends Component {
@@ -13,15 +14,25 @@ class NearbyComponent extends Component {
             resultData: [],
             dropdownOpen: false,
             dropdownItems: "",
-            selectedValue: "Select"
+            selectedValue: "Select",
+            isLoaded: false,
         };
-        this.dropdownItemsArray = ["hospital", "school", "bank"];
+        this.dropdownItemsArray = [{"displayName":"Hospital","name":"hospital"}, 
+        {"displayName":"School","name":"school"}, 
+        {"displayName":"Bank","name":"bank"},
+        {"displayName":"ATM","name":"atm"},
+        {"displayName":"Cafe","name":"cafe"},
+        {"displayName":"Petrol Pump","name":"gas_station"},
+        {"displayName":"Movie Theater","name":"movie_theater"},
+        {"displayName":"Parking","name":"parking"},
+        {"displayName":"Pharmacy","name":"pharmacy"},
+        {"displayName":"Supermarket","name":"supermarket"}];
     }
 
     componentDidMount() {
         // this.placeSearch(this.props.latitude, this.props.longitude, 1000);
-        let temp = this.dropdownItemsArray.map((item) => <DropdownItem onClick={() => this.menuSelect(item)}>{item}</DropdownItem>);
-        this.setState({ dropdownItems: temp });
+        let temp = this.dropdownItemsArray.map((item) => <DropdownItem onClick={() => this.menuSelect(item)}>{item.displayName}</DropdownItem>);
+        this.setState({ dropdownItems: temp, isLoaded: true });
     }
 
     handlePositionChange = (position) => {
@@ -32,13 +43,14 @@ class NearbyComponent extends Component {
 
     placeSearch(latitude, longitude, radius, type) {
 
+        this.setState({isLoaded: false});
         fetch('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + latitude + ',' + longitude + '&radius=' + radius + '&types=' + type + '&key=AIzaSyBr9VoS8bsF3oVfNU9BQmo44M-oNascEIY')
             .then(res => res.json())
             .then(
                 (result) => {
                     this.dummyData = [];
                     result.results.map((res) => this.dummyData.push(res));
-                    this.setState({ resultData: this.dummyData });
+                    this.setState({ resultData: this.dummyData, isLoaded: true });
                 },
                 (error) => {
                 }
@@ -53,8 +65,8 @@ class NearbyComponent extends Component {
     }
 
     menuSelect(item) {
-        this.placeSearch(this.props.latitude, this.props.longitude, 3000, item);
-        this.setState({ selectedValue: item });
+        this.placeSearch(this.props.latitude, this.props.longitude, 3000, item.name);
+        this.setState({ selectedValue: item.displayName });
 
     }
 
@@ -70,7 +82,8 @@ class NearbyComponent extends Component {
                         {this.state.dropdownItems}
                     </DropdownMenu>
                 </ButtonDropdown>
-                <ul class="search-list">
+                <ul className="search-list">
+                <Loader loaded={this.state.isLoaded}/>
                     {this.state.resultData.map((result) => {
                         return <li className="list-element">
                                     <div className="list-name bold-italic" onClick={()=> this.handlePositionChange(result.geometry.location)}>

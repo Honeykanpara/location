@@ -28,6 +28,7 @@
   ],
   "devDependencies": {
     "google-maps-react": "^2.0.2",
-    "googleapis": "^36.0.0"
+    "googleapis": "^36.0.0",
+    "react-loader": "^2.4.5"
   }
 }

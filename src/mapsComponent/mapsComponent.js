@@ -71,6 +71,7 @@ class MapsComponent extends Component {
                         lat: this.state.position.lat,
                         lng: this.state.position.lng
                     }}
+                    gestureHandling={"greedy"}
                     onClick={this.onMapClicked} className="map"
                 >
                     <Marker name={'Current location'} onClick={this.onMarkerClick} position={this.state.position} />
