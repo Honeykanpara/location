@@ -9,7 +9,7 @@
 
 .app-body {
   background-color: #282c34;
-  min-height: 50vh;
+  min-height: 60vh;
   flex-direction: column;
   font-size: calc(10px + 2vmin);
   color: white;
@@ -19,15 +19,65 @@
   color: #61dafb;
 }
 
+ul {
+  list-style-type: none;
+}
+li{
+  text-align:left;
+}
+
+.list-name{
+  cursor: pointer;
+}
+.name-head:hover{
+  border-bottom: solid 1px black;
+}
+.list-element{
+  margin: 10px;
+}
+
+.search-list{
+  margin-top: 20px;
+}
 .map-component{
   padding-top: 30px;
 }
+.dropdown{
+  margin: 0 10px;
+  width: 100px;
+}
+
+.bold-italic{
+  font-weight: bold;
+  font-style: italic;
+}
+.header{
+  font-weight: bold;
+  font-size: 22px;
+  font-style: italic;
+}
+.header-logo{
+  width: 50px;
+  height: 50px;
+  padding: 10px;
+}
 
 .map{
-  height: 45% !important;
+  height: 50% !important;
 }
 .nearby{
   z-index: 10;
+  margin: 0 5%;
+}
+.allow-location{
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+  margin: auto;
+  width: 300px;
+  height: 10px;
 }
 
 @keyframes App-logo-spin {

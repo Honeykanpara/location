@@ -13,7 +13,7 @@ class HomePage extends Component {
       longitude: "",
       loadMaps: false,
       address: ""
-        }
+    }
     this.getLocation = this.getLocation.bind(this);
     this.handlePositionChange = this.handlePositionChange.bind(this);
   }
@@ -50,12 +50,21 @@ class HomePage extends Component {
   render() {
     return (
       <div className="App">
-        <div className="header-component">Welcome</div>
-        <div className="app-body">
-          <div className="map-component">{this.state.loadMaps ? <MapsComponent latitude={this.state.latitude} longitude={this.state.longitude}></MapsComponent> : ""}</div>
+        <div className="header-component">
+          <div className="header">
+          <img src={'/images/logo.png'} className="header-logo"/>
+            AboutMyLocation
+            </div>
         </div>
-        <div className="location-text"> You are at: {this.state.address}</div>
-        {this.state.loadMaps ? <NearbyComponent latitude={this.state.latitude} longitude={this.state.longitude} onSelectPosition={this.handlePositionChange}></NearbyComponent> : ""}
+        {this.state.latitude === "" && <div className="allow-location"><span>Please allow location detection from setting to get better look at site.</span></div>}
+        {this.state.latitude !== "" && <div>
+          <div className="app-body">
+            <div className="map-component">{this.state.loadMaps ? <MapsComponent latitude={this.state.latitude} longitude={this.state.longitude}></MapsComponent> : ""}</div>
+          </div>
+          {this.state.address !== "" && <div className="location-text"> <span className ="bold-italic">Current Location:</span> {this.state.address}</div>}
+          {this.state.loadMaps ? <NearbyComponent latitude={this.state.latitude} longitude={this.state.longitude} onSelectPosition={this.handlePositionChange}></NearbyComponent> : ""}
+        </div>
+        }
       </div>
     );
   }

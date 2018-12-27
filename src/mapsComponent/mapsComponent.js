@@ -51,21 +51,21 @@ class MapsComponent extends Component {
     componentWillReceiveProps() {
 
         //setting timeout as setState takes time
-        setTimeout(()=>{
+        setTimeout(() => {
             this.setState({
                 position: {
                     lat: this.props.latitude,
                     lng: this.props.longitude
                 }
             });
-        },10);
+        }, 10);
     }
     render() {
         return (
             <div>
-                    <Map
+                <Map
                     google={this.props.google}
-                    zoom={14}
+                    zoom={16}
                     style={mapStyles}
                     center={{
                         lat: this.state.position.lat,
