@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Map, GoogleApiWrapper } from 'google-maps-react';
 import MapsComponent from '../mapsComponent/mapsComponent.js';
 import Geocode from "react-geocode";
 import NearbyComponent from '../nearbyComponent/nearbyComponent.js';

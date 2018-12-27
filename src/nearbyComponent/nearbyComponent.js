@@ -12,7 +12,8 @@ class NearbyComponent extends Component {
         this.state = {
             resultData: [],
             dropdownOpen: false,
-            dropdownItems: ""
+            dropdownItems: "",
+            selectedValue: "Select"
         };
         this.dropdownItemsArray= ["hospital", "school", "bank"];
     }
@@ -31,17 +32,13 @@ class NearbyComponent extends Component {
 
     placeSearch(latitude, longitude, radius, type) {
 
-        fetch('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + latitude + ',' + longitude + '&radius=' + radius + '&types='+type+'&key=AIzaSyBr9VoS8bsF3oVfNU9BQmo44M-oNascEIY')
+        fetch('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + latitude + ',' + longitude + '&radius=' + radius + '&types='+type+'&key=AIzaSyBr9VoS8bsF3oVfNU9BQmo44M-oNascEIY')
           .then(res => res.json())
           .then(
             (result) => {
                 this.dummyData =[];
-              result.results.map((res) => {
-                this.dummyData.push(res);
-              }
-              );
+              result.results.map((res) => this.dummyData.push(res));
               this.setState({resultData: this.dummyData});
-              console.log(this.state.resultData);
             },
             (error) => {
             }
@@ -57,6 +54,7 @@ class NearbyComponent extends Component {
 
     menuSelect(item) {
     this.placeSearch(this.props.latitude, this.props.longitude, 1000, item); 
+    this.setState({selectedValue: item});
         
     }
 
@@ -66,7 +64,7 @@ class NearbyComponent extends Component {
             <div>What you want to search?</div>
             <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                 <DropdownToggle caret>
-                Button Dropdown
+                {this.state.selectedValue}
                 </DropdownToggle>
                 <DropdownMenu>
                     {this.state.dropdownItems}
@@ -81,7 +79,7 @@ class NearbyComponent extends Component {
             <div>
                 Address: {result.vicinity}
             </div>
-            <button onClick={()=> this.handlePositionChange(result.geometry.location)}>Display On Maps</button>
+            <button type="button" className="btn btn-info" onClick={()=> this.handlePositionChange(result.geometry.location)}>Display On Maps</button>
             </li>;
           })}
           </ul>
