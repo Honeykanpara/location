@@ -35,8 +35,8 @@ class NearbyComponent extends Component {
         this.setState({ dropdownItems: temp, isLoaded: true });
     }
 
-    handlePositionChange = (position) => {
-        this.props.onSelectPosition(position);
+    handlePositionChange = (position, name) => {
+        this.props.onSelectPosition(position, name);
         document.body.scrollTop = 0; // For Safari
         document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera         
     }
@@ -86,7 +86,7 @@ class NearbyComponent extends Component {
                 <Loader loaded={this.state.isLoaded}/>
                     {this.state.resultData.map((result) => {
                         return <li className="list-element">
-                                    <div className="list-name bold-italic" onClick={()=> this.handlePositionChange(result.geometry.location)}>
+                                    <div className="list-name bold-italic" onClick={()=> this.handlePositionChange(result.geometry.location, result.name)}>
                                         Name: <span className="name-head">{result.name}</span>
                                     </div>
                                     <div>

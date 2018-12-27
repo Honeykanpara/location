@@ -12,7 +12,8 @@ class HomePage extends Component {
       latitude: "",
       longitude: "",
       loadMaps: false,
-      address: ""
+      address: "",
+      markerName: "Current Location"
     }
     this.getLocation = this.getLocation.bind(this);
     this.handlePositionChange = this.handlePositionChange.bind(this);
@@ -43,8 +44,8 @@ class HomePage extends Component {
     this.getLocation();
   }
 
-  handlePositionChange(position) {
-    this.setState({ latitude: position.lat, longitude: position.lng });
+  handlePositionChange(position, name) {
+    this.setState({ latitude: position.lat, longitude: position.lng, markerName: name });
   }
 
   render() {
@@ -59,7 +60,7 @@ class HomePage extends Component {
         {this.state.latitude === "" && <div className="allow-location"><span>Please allow location detection from setting to get better look at site.</span></div>}
         {this.state.latitude !== "" && <div>
           <div className="app-body">
-            <div className="map-component">{this.state.loadMaps ? <MapsComponent latitude={this.state.latitude} longitude={this.state.longitude}></MapsComponent> : ""}</div>
+            <div className="map-component">{this.state.loadMaps ? <MapsComponent latitude={this.state.latitude} longitude={this.state.longitude} markerName={this.state.markerName}></MapsComponent> : ""}</div>
           </div>
           {this.state.address !== "" && <div className="location-text"> <span className ="bold-italic">Current Location:</span> {this.state.address}</div>}
           {this.state.loadMaps ? <NearbyComponent latitude={this.state.latitude} longitude={this.state.longitude} onSelectPosition={this.handlePositionChange}></NearbyComponent> : ""}

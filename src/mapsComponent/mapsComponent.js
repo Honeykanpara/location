@@ -74,12 +74,10 @@ class MapsComponent extends Component {
                     gestureHandling={"greedy"}
                     onClick={this.onMapClicked} className="map"
                 >
-                    <Marker name={'Current location'} onClick={this.onMarkerClick} position={this.state.position} />
+                    <Marker name={this.props.markerName} onClick={this.onMarkerClick} position={this.state.position} />
                     <InfoWindow marker={this.state.activeMarker}
                         visible={this.state.showingInfoWindow}>
-                        <div>
-                            <h1 className="current-location">{this.state.selectedPlace.name}</h1>
-                        </div>
+                            <div className="current-location">{this.state.selectedPlace.name}</div>
                     </InfoWindow>
                 </Map>
             </div>
