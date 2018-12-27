@@ -46,6 +46,9 @@ li{
   margin: 0 10px;
   min-width: 100px;
 }
+.test{
+  width: 100%
+}
 
 .bold-italic{
   font-weight: bold;
