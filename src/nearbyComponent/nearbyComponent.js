@@ -30,9 +30,10 @@ class NearbyComponent extends Component {
     }
 
     componentDidMount() {
-        // this.placeSearch(this.props.latitude, this.props.longitude, 1000);
         let temp = this.dropdownItemsArray.map((item) => <DropdownItem onClick={() => this.menuSelect(item)}>{item.displayName}</DropdownItem>);
         this.setState({ dropdownItems: temp, isLoaded: true });
+        this.placeSearch(this.props.latitude, this.props.longitude, 3000, 'hospital');
+        this.setState({selectedValue: "Hospital"})
     }
 
     handlePositionChange = (position, name) => {

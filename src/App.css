@@ -21,6 +21,8 @@
 
 ul {
   list-style-type: none;
+  height: 20vh;
+  overflow-y: scroll;
 }
 li{
   text-align:left;
