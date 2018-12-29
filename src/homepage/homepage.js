@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import MapsComponent from '../mapsComponent/mapsComponent.js';
 import Geocode from "react-geocode";
 import NearbyComponent from '../nearbyComponent/nearbyComponent.js';
+import AdSense from 'react-adsense';
 
 Geocode.setApiKey("AIzaSyBr9VoS8bsF3oVfNU9BQmo44M-oNascEIY");
 
@@ -66,6 +67,14 @@ class HomePage extends Component {
           {this.state.loadMaps ? <NearbyComponent latitude={this.state.latitude} longitude={this.state.longitude} onSelectPosition={this.handlePositionChange}></NearbyComponent> : ""}
         </div>
         }
+                <AdSense.Google
+          client='ca-pub-7414322368995670'
+          slot='7806394673'
+          style={{ display: 'block' }}
+          format='auto'
+          responsive='true'
+
+        />
       </div>
     );
   }
