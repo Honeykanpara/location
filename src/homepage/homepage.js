@@ -4,7 +4,7 @@ import Geocode from "react-geocode";
 import NearbyComponent from '../nearbyComponent/nearbyComponent.js';
 import AdSense from 'react-adsense';
 
-Geocode.setApiKey("AIzaSyBr9VoS8bsF3oVfNU9BQmo44M-oNascEIY");
+Geocode.setApiKey(process.env.REACT_APP_GOOGLE_KEY);
 
 class HomePage extends Component {
   constructor(props) {
@@ -62,6 +62,7 @@ class HomePage extends Component {
   }
   componentDidMount() {
     this.getLocation();
+    console.log(process.env.REACT_APP_GOOGLE_KEY);
   }
 
   handlePositionChange(position, name) {
