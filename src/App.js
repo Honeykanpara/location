@@ -14,7 +14,6 @@ class App extends Component {
           {"name": "google-site-verification", "content": "rh7wBQPuRc8UHq4jNy5RLd-8i1GCRryFTq6XvmfcUf0"}
          ]}/>
          <meta name="google-site-verification" content="rh7wBQPuRc8UHq4jNy5RLd-8i1GCRryFTq6XvmfcUf0" />
-         <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
         {/* <meta charSet="utf-8" />
         <title>About My Location</title>
         <link rel="canonical" href="http://mysite.com/example" /> */}

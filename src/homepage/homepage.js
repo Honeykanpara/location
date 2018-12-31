@@ -16,6 +16,7 @@ class HomePage extends Component {
       address: "",
       markerName: "Current Location"
     }
+    this.showWarning = false;
     this.getLocation = this.getLocation.bind(this);
     this.handlePositionChange = this.handlePositionChange.bind(this);
     this.geoPluginAddress={};
@@ -25,22 +26,23 @@ class HomePage extends Component {
     this.getAddress(e.latitude, e.longitude);
   }
   getLocation() {
-    if (navigator.geolocation !== {}) {
-      
+
+    if (navigator.geolocation) {  
       navigator.geolocation.getCurrentPosition((position) => {
         this.handleChange(position.coords);
+        this.showWarning = false;
       });
     } 
         //getting ip based location
-        fetch("http://www.geoplugin.net/json.gp")
+        fetch("https://geoip-db.com/json/")
         .then(res => res.json())
         .then(
             ( result ) => {
               this.geoPluginAddress=result;
               if(this.state.loadMaps == false) {
-                let position={latitude: this.geoPluginAddress.geoplugin_latitude, longitude: this.geoPluginAddress.geoplugin_longitude};
+                this.showWarning = true;
+                let position={latitude: this.geoPluginAddress.latitude, longitude: this.geoPluginAddress.longitude};
                 this.handleChange(position);
-          
               }
             },
             (error) => {
@@ -75,8 +77,9 @@ class HomePage extends Component {
             AboutMyLocation
             </div>
         </div>
-        {this.state.latitude === "" && <div className="allow-location"><span>Please allow location detection from setting to get better look at site.</span></div>}
+        {this.state.latitude === "" && <div className="allow-location"><span>Allow location detection from setting to get better look at site.</span></div>}
         {this.state.latitude !== "" && <div>
+        {this.showWarning && <div>Turn on browser location for more accurate positioning.</div>}
           <div className="app-body">
             <div className="map-component">{this.state.loadMaps ? <MapsComponent latitude={this.state.latitude} longitude={this.state.longitude} markerName={this.state.markerName}></MapsComponent> : ""}</div>
           </div>
