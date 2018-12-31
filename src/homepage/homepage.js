@@ -18,17 +18,34 @@ class HomePage extends Component {
     }
     this.getLocation = this.getLocation.bind(this);
     this.handlePositionChange = this.handlePositionChange.bind(this);
+    this.geoPluginAddress={};
   }
   handleChange = (e) => {
     this.setState({ latitude: e.latitude, longitude: e.longitude, loadMaps: true });
     this.getAddress(e.latitude, e.longitude);
   }
   getLocation() {
-    if (navigator.geolocation) {
+    if (navigator.geolocation !== {}) {
+      
       navigator.geolocation.getCurrentPosition((position) => {
         this.handleChange(position.coords);
       });
-    }
+    } 
+        //getting ip based location
+        fetch("http://www.geoplugin.net/json.gp")
+        .then(res => res.json())
+        .then(
+            ( result ) => {
+              this.geoPluginAddress=result;
+              if(this.state.loadMaps == false) {
+                let position={latitude: this.geoPluginAddress.geoplugin_latitude, longitude: this.geoPluginAddress.geoplugin_longitude};
+                this.handleChange(position);
+          
+              }
+            },
+            (error) => {
+            }
+        )
   }
 
   getAddress(lat, long) {
