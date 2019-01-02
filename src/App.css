@@ -18,6 +18,11 @@
 .App-link {
   color: #61dafb;
 }
+.description{
+  width: 80%;
+  margin: 0 10%;
+  font-size: 14px;
+}
 
 ul {
   list-style-type: none;

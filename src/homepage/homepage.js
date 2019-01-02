@@ -62,7 +62,6 @@ class HomePage extends Component {
   }
   componentDidMount() {
     this.getLocation();
-    console.log(process.env.REACT_APP_GOOGLE_KEY);
   }
 
   handlePositionChange(position, name) {
@@ -77,6 +76,10 @@ class HomePage extends Component {
           <img src={'/images/logo.png'} className="header-logo"/>
             AboutMyLocation
             </div>
+            <div className="description">
+            {`About My Location is a basic app which detects your current address and displays near by places on map. Get to know about your location and see important nearby places on map.\nHappy hunting !!!`}
+              </div>
+            
         </div>
         {this.state.latitude === "" && <div className="allow-location"><span>Allow location detection from setting to get better look at site.</span></div>}
         {this.state.latitude !== "" && <div>
