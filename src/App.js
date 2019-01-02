@@ -10,7 +10,7 @@ class App extends Component {
       <div>
         <Helmet title="About My Location"
         meta={[
-          {"name": "description", "content": "About my location helps you to find nearby places and their adress. It is very easy to use and its awesome."},
+          {"name": "description", "content": "About My Location is a basic app which detects your current address and displays near by places on map. Get to know about your location and see important nearby places on map.Happy hunting !!!"},
           {"name": "google-site-verification", "content": "rh7wBQPuRc8UHq4jNy5RLd-8i1GCRryFTq6XvmfcUf0"}
          ]}/>
          <meta name="google-site-verification" content="rh7wBQPuRc8UHq4jNy5RLd-8i1GCRryFTq6XvmfcUf0" />
