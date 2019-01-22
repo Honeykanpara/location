@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import MapsComponent from '../mapsComponent/mapsComponent.js';
 import Geocode from "react-geocode";
 import NearbyComponent from '../nearbyComponent/nearbyComponent.js';
+import DetailsComponent from '../detailsComponent/detailsComponent.js';
 import AdSense from 'react-adsense';
 
 Geocode.setApiKey(process.env.REACT_APP_GOOGLE_KEY);
@@ -14,7 +15,13 @@ class HomePage extends Component {
       longitude: "",
       loadMaps: false,
       address: "",
-      markerName: "Current Location"
+      markerName: "Current Location",
+      addressDetails:{
+        countryName:"",
+        cityName:"",
+        zipCode: "",
+        ipAddress:""
+      }
     }
     this.showWarning = false;
     this.getLocation = this.getLocation.bind(this);
@@ -39,6 +46,14 @@ class HomePage extends Component {
         .then(
             ( result ) => {
               this.geoPluginAddress=result;
+              this.setState({
+                addressDetails:{
+                  countryName: this.geoPluginAddress.country_name,
+                  cityName: this.geoPluginAddress.city,
+                  zipCode: this.geoPluginAddress.postal,
+                  ipAddress: this.geoPluginAddress.IPv4
+                }
+              })
               if(this.state.loadMaps == false) {
                 this.showWarning = true;
                 let position={latitude: this.geoPluginAddress.latitude, longitude: this.geoPluginAddress.longitude};
@@ -86,6 +101,7 @@ class HomePage extends Component {
         {this.showWarning && <div>Turn on browser location for more accurate positioning.</div>}
           <div className="app-body">
             <div className="map-component">{this.state.loadMaps ? <MapsComponent latitude={this.state.latitude} longitude={this.state.longitude} markerName={this.state.markerName}></MapsComponent> : ""}</div>
+            <div className="info-table"><DetailsComponent latitude={this.state.latitude} longitude={this.state.longitude} addressDetails={this.state.addressDetails}></DetailsComponent></div>
           </div>
           {this.state.address !== "" && <div className="location-text"> <span className ="bold-italic">Current Location:</span> {this.state.address}</div>}
           {this.state.loadMaps ? <NearbyComponent latitude={this.state.latitude} longitude={this.state.longitude} onSelectPosition={this.handlePositionChange}></NearbyComponent> : ""}

@@ -17,6 +17,13 @@ class NearbyComponent extends Component {
             selectedValue: "Select",
             isLoaded: false,
         };
+        this.options = {
+            zIndex: 2e9,
+            top: '25vh',
+            left: '50%',
+            shadow: false,
+            position: 'relative'
+        };
         this.dropdownItemsArray = [{"displayName":"Hospital","name":"hospital"}, 
         {"displayName":"School","name":"school"}, 
         {"displayName":"Bank","name":"bank"},
@@ -44,8 +51,8 @@ class NearbyComponent extends Component {
 
     placeSearch(latitude, longitude, radius, type) {
 
-        this.setState({isLoaded: false});
-        fetch('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + latitude + ',' + longitude + '&radius=' + radius + '&types=' + type + '&key=AIzaSyBr9VoS8bsF3oVfNU9BQmo44M-oNascEIY')
+        this.setState({isLoaded: false, resultData: []});
+        fetch('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + latitude + ',' + longitude + '&radius=' + radius + '&types=' + type + '&key=' + process.env.REACT_APP_GOOGLE_KEY)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -84,7 +91,7 @@ class NearbyComponent extends Component {
                     </DropdownMenu>
                 </ButtonDropdown>
                 <ul className="search-list">
-                <Loader loaded={this.state.isLoaded}/>
+                <Loader options={this.options} loaded={this.state.isLoaded}/>
                     {this.state.resultData.map((result) => {
                         return <li className="list-element">
                                     <div className="list-name bold-italic" onClick={()=> this.handlePositionChange(result.geometry.location, result.name)}>
